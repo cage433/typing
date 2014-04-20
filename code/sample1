@@ -1,0 +1,15 @@
+D:describe("Starling book close") {
+ :  it("should save the right state of trades") {
+ :    withStarling(starling => {
+ :      info("Startling with empty Starling we add a F1 trade on 20/Nov/2013...")
+ :      starling.futures(20/Nov/2013, "F1", NYMEX_GASOLINE, Jan/2014, 200 (US_CENT/GAL), 42000 (GAL))
+ :
+ :      info("...and close 20/Nov/2013.")
+ :      val Nov20_close1: starling.DayToClose = starling.live.on(20/Nov/2013).close
+ :
+ :      info("Then we should see F1 trade in its saved state")
+ :      starling.report(Nov20_close1) {
+ :        values => {
+ :          assert(values("F1")("Quantity") === "42,000")
+ :        }
+ :      }
